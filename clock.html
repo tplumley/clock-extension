@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Clock</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Josefin+Sans:100,300' rel='stylesheet' type='text/css'>
+
+	<style type="text/css">
+		body {margin:0;}
+		#main-background {background: url(https://unsplash.imgix.net/uploads%2F1412238370909393b4a19%2F79f023f1?q=75&w=1080&h=1080&fit=max&fm=jpg&auto=format&s=8f4b2375d1644b49d8e5a83dae37a6a6) no-repeat; position: absolute; background-size:cover; width: 100%; height: 100%;}
+		#clock-wrapper {position: relative;position: absolute;height: 100%;width: 100%;}
+		#clock { opacity: 0; text-align: center;position:absolute; top:50%; bottom:50%;width: 100%;}
+		#clock p {font-family: 'Josefin Sans', sans-serif; font-weight: 300; font-size: 110px;line-height: 50px;margin: 0;color:#fff;text-shadow: 2px 2px #ABABAB;}
+		/*#clock p #seconds {font-size: 12px;}*/
+	</style>
+</head>
+<body>
+	
+<div id="main-background">
+	
+	<div id="clock-wrapper">
+		<div id="clock">
+			<p id="main-time"></p>
+		</div>
+	</div>
+
+</div>
+
+
+
+	<script type="text/javascript">
+
+		function updateClock ( )
+			{
+			var currentTime = new Date ( );
+			var currentHours = currentTime.getHours ( );
+			var currentMinutes = currentTime.getMinutes ( );
+			var currentSeconds = currentTime.getSeconds ( );
+
+			// Pad the minutes and seconds with leading zeros, if required
+			currentMinutes = ( currentMinutes < 10 ? "0" : "" ) + currentMinutes;
+			currentSeconds = ( currentSeconds < 10 ? "0" : "" ) + currentSeconds;
+
+			// Choose either "AM" or "PM" as appropriate
+			var timeOfDay = ( currentHours < 12 ) ? "AM" : "PM";
+
+			// Convert the hours component to 12-hour format if needed
+			currentHours = ( currentHours > 12 ) ? currentHours - 12 : currentHours;
+
+			// Convert an hours component of "0" to "12"
+			currentHours = ( currentHours == 0 ) ? 12 : currentHours;
+
+			// Compose the string for display
+			// var currentTimeString = currentHours + ":" + currentMinutes + ":" + currentSeconds + " " + timeOfDay;
+			// var currentTimeString = currentHours + ":" + currentMinutes + " <span id='seconds'>" + currentSeconds + "</span> ";
+			var currentTimeString = currentHours + ":" + currentMinutes;
+
+			$("#main-time").html(currentTimeString);
+			
+
+			if ( $('#clock').html() ) {
+				$('#clock').animate({opacity: '1'}, 500);
+			};
+
+		}
+		
+		$(document).ready(function()
+		{
+			setInterval('updateClock()', 1000);
+			
+			
+		});
+
+	</script>
+</body>
+</html>
